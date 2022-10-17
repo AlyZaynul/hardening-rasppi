@@ -109,13 +109,13 @@ comd1=$(chmod u-x,go-wx $(readlink -e /etc/issue.net))
 
 #1.8.3
 #gdm eventhough has been preinstalled these files does not exist and when user tries to download gdm he would be greeted w an error. Thus the user is not able to update gdm files
-cmmd6=$(echo "user-db:user" >> /etc/dconf/profile/gdm)
-cmmd7=$(echo "system-db:gdm" >> /etc/dconf/profile/gdm)
-cmmd8=$(echo "file-db:/usr/share/gdm/greeter-dconf-defaults" >> /etc/dconf/profile/gdm)
-cmmd9=$(echo "[org/gnome/login-screen]" >> /etc/dconf/db/gdm.d/00-loginscreen)
-cmmd10=$(echo "# Do not show the user list:" >> /etc/dconf/db/gdm.d/00-loginscreen)
-cmmd11=$(echo "disable-user-list=true" >> /etc/dconf/db/gdm.d/00-loginscreen)
-cmmd12=$(dconf update)
+#cmmd6=$(echo "user-db:user" >> /etc/dconf/profile/gdm)
+#cmmd7=$(echo "system-db:gdm" >> /etc/dconf/profile/gdm)
+#cmmd8=$(echo "file-db:/usr/share/gdm/greeter-dconf-defaults" >> /etc/dconf/profile/gdm)
+#cmmd9=$(echo "[org/gnome/login-screen]" >> /etc/dconf/db/gdm.d/00-loginscreen)
+#cmmd10=$(echo "# Do not show the user list:" >> /etc/dconf/db/gdm.d/00-loginscreen)
+#cmmd11=$(echo "disable-user-list=true" >> /etc/dconf/db/gdm.d/00-loginscreen)
+#cmmd12=$(dconf update)
 
 #1.8.4 While good to have does not harden the infrastructure
 
