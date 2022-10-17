@@ -1,3 +1,5 @@
+#Ensure that SSH has been turned on. Via gui or command line using command <sudo raspi-config>
+
 
 #AIDE NOT COMPATIBLE ON RASPBERRY PI
 
