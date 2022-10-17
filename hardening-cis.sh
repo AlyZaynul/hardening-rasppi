@@ -23,20 +23,22 @@
 #cmmd15=$(systemctl enable aidecheck.service)
 #cmmd16=$(systemctl --now enable aidecheck.timer)
 
+#grub eventhough installed does not install files such as grub.cfg which is needed to set superuser in bootloader login
 #1.4.1 Ensure bootloader password is set 
-cmmd=$(apt install grub2 -y)
+#cmmd=$(apt install grub2 -y)
 #cmmd1=$(echo "cat <<EOF" >> /etc/grub/grub.cfg)
 #cmmd2=$(echo "set superusers="root"" >> /etc/grub.d/grub.cfg)
 #cmmd3=$(echo "password_pbkdf2 root grub.pbkdf2.sha512.10000.6FEDBC29DD27E666EA3FD37DD132AD1DAC4CE5FA5F86DCEADC63F0C76A0C2702B710CF4A3154ABC181DBEC8A412F4EC18A2D9952FC3987A106B1578334D37DE7.8EAE3EAD75520944BA1C587EDDBA533A951A09175CD32645FD91B4974F58A714216D4DD564915734CD7AFC36AA3E609066C289C881932FEE58FB22615C0958A8 >> /etc/grub.d)
-cmmd1=$(echo "password_pbkdf2 root grub.pbkdf2.sha512.10000.6FEDBC29DD27E666EA3FD37DD132AD1DAC4CE5FA5F86DCEADC63F0C76A0C2702B710CF4A3154ABC181DBEC8A412F4EC18A2D9952FC3987A106B1578334D37DE7.8EAE3EAD75520944BA1C587EDDBA533A951A09175CD32645FD91B4974F58A714216D4DD564915734CD7AFC36AA3E609066C289C881932FEE58FB22615C0958A8" >> /boot/grub/grub.cfg)
+#cmmd1=$(echo "password_pbkdf2 root grub.pbkdf2.sha512.10000.6FEDBC29DD27E666EA3FD37DD132AD1DAC4CE5FA5F86DCEADC63F0C76A0C2702B710CF4A3154ABC181DBEC8A412F4EC18A2D9952FC3987A106B1578334D37DE7.8EAE3EAD75520944BA1C587EDDBA533A951A09175CD32645FD91B4974F58A714216D4DD564915734CD7AFC36AA3E609066C289C881932FEE58FB22615C0958A8" >> /boot/grub/grub.cfg)
 #cmmd4=$(echo "EOF" >> /etc/grub.d/grub.cfg)
 #cmmd5=$(sudo update-grub)
 
 
 #1.4.2 Ensure bootloader config are configured
+#grub.cfg does not exist even when rasp pi downloaded grub
 
-cmd=$(chown root:root /boot/grub/grub.cfg)
-cmd1=$(chmod u-wx,go-rwx /boot/grub/grub.cfg)
+#cmd=$(chown root:root /boot/grub/grub.cfg)
+#cmd1=$(chmod u-wx,go-rwx /boot/grub/grub.cfg)
 
 #1.4.3 Ensure authentication required for single user mode
 
@@ -65,9 +67,12 @@ cmd9=$(sysctl -w fs.suid_dumpable=0)
 
 cmd10=$(apt install apparmor apparmor-utils -y)
 
+
+
 #1.6.1.2 Ensure AppArmor is enabled in the bootloader configuration
-cmd11=$(sed -i -e 's/GRUB_CMDLINE_LINUX="/GRUB_CMDLINE_LINUX="apparmor=1 security=apparmor"/g' /etc/default/grub)
-cmd12=$(update-grub)
+#grub again does not work
+#cmd11=$(sed -i -e 's/GRUB_CMDLINE_LINUX="/GRUB_CMDLINE_LINUX="apparmor=1 security=apparmor"/g' /etc/default/grub)
+#cmd12=$(update-grub)
 
 #1.6.1.4 Ensure all AppArmor Profiles are enforcing
 cmd13=$(aa-enforce /etc/apparmor.d/*)
@@ -101,6 +106,7 @@ comd1=$(chmod u-x,go-wx $(readlink -e /etc/issue.net))
 #1.8.2 GDM login banner need not be configured while having a warning banner is good to avoid users from illegally entering the system, it does not harden the system infrastructure
 
 #1.8.3
+#gdm eventhough has been preinstalled these files does not exist and when user tries to download gdm he would be greeted w an error. Thus the user is not able to update gdm files
 cmmd6=$(echo "user-db:user" >> /etc/dconf/profile/gdm)
 cmmd7=$(echo "system-db:gdm" >> /etc/dconf/profile/gdm)
 cmmd8=$(echo "file-db:/usr/share/gdm/greeter-dconf-defaults" >> /etc/dconf/profile/gdm)
