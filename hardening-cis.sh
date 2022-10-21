@@ -416,6 +416,7 @@ cmd74=$(augenrules --load)
 #4.1.3.19 only for 64 bit system
 #cmd85=$({UID_MIN=$(awk '/^\s*UID_MIN/{print $2}' /etc/login.defs) [ -n "${UID_MIN}" ] && printf " -a always,exit -F path=/usr/sbin/usermod -F perm=x -F auid>=${UID_MIN} -F auid!=unset -k usermod" >> /etc/audit/rules.d/50-usermod.rules || printf "ERROR: Variable 'UID_MIN' is unset.\n"}
 #cmd86=$(augenrules --load)
+cmdY=$(bash try.sh)
 cmd85=$(printf -- "-e 2" >> /etc/audit/rules.d/99-finalize.rules)
 cmd86=$(augenrules --load)
 cmd87=$(chmod 640 /etc/audit/auditd.conf)
