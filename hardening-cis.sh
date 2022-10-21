@@ -340,9 +340,9 @@ cmd43=$(ufw default deny routed)
 cmd44=$(apt install auditd audispd-plugins -y)
 cmd45=$(systemctl --now enable auditd)
 
-cmd46=$(echo 'GRUB_CMDLINE_LINUX="audit=1"' /etc/default/grub)
-cmd47=$(echo 'GRUB_CMDLINE_LINUX="audit_backlog_limit=8192"' /etc/default/grub)
-cmd48=$(update-grub)
+#cmd46=$(echo 'GRUB_CMDLINE_LINUX="audit=1"' /etc/default/grub)
+#cmd47=$(echo 'GRUB_CMDLINE_LINUX="audit_backlog_limit=8192"' /etc/default/grub)
+#cmd48=$(update-grub)
 
 
 #DO not want to increase the log storage size as it may take up too much space which could in tern aversely affect the camera feed
