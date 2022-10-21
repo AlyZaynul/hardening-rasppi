@@ -315,6 +315,7 @@ cmd37=$(ufw allow out on lo)
 cmd38=$(ufw deny in from 127.0.0.0/8)
 cmd39=$(ufw deny in from ::1)
 cmd40=$(ufw allow out on all)
+cmdssh=$(sudo ufw allow OpenSSH)
 
 
 #3.5.1.6 creating ufw for open ports (5900,8081,22) 631 not inside as it used for CUPS service which has been removed
