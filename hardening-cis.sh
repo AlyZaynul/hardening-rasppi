@@ -512,6 +512,7 @@ cmd129=$(sed -i -e 's/#UsePAM yes/UsePAM yes/g'  /etc/ssh/sshd_config)
 #5.2.7
 cmd130=$(sed -i -e 's/PermitRootLogin prohibit-password/PermitRootLogin no/g'  /etc/ssh/sshd_config)
 cmd131=$(sed -i -e 's/PermitRootLogin yes/PermitRootLogin no/g'  /etc/ssh/sshd_config)
+cmd131add=$(sed -i -e 's/#PermitRootLogin no/PermitRootLogin no/g'  /etc/ssh/sshd_config)
 
 #5.2.8
 cmd132=$(sed -i -e 's/HostbasedAuthentication yes/HostbasedAuthentication no/g'  /etc/ssh/sshd_config)
