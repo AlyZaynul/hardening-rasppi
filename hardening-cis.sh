@@ -353,7 +353,7 @@ cmd49=$(echo "max_log_file_action = keep_logs" >> /etc/audit/auditd.conf)
 #While security is important the purpose of the camera is meant to be kept running no matter whaat so that emergency stops can still be executed if the employee deem the machine unsafe through the camera feed
 
 #4.1.3.1
-cmd50=$(printf " -w /etc/sudoers -p wa -k scope -w /etc/sudoers.d -p wa -k scope" >> /etc/audit/rules.d/50-scope.rules)
+cmd50=$(printf " -w /etc/sudoers -p wa -k scope\n -w /etc/sudoers.d -p wa -k scope" >> /etc/audit/rules.d/50-scope.rules)
 cmd51=$(augenrules --load)
 cmd53=$(printf " -a always,exit -F arch=b32 -C euid!=uid -F auid!=unset -S execve -k user_emulation" >> /etc/audit/rules.d/50-user_emulation.rules)
 cmd54=$(augenrules --load)
