@@ -545,13 +545,18 @@ cmd147=$(echo "MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,
 #cmd148=$(echo "KexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellmangroup14-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,ecdh-sha2-nistp521,ecdh-sha2-nistp384,ecdh-sha2-nistp256,diffiehellman-group-exchange-sha256" >> /etc/ssh/sshd_config)
 cmd148=$(echo "KexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,ecdh-sha2-nistp521,ecdh-sha2-nistp384,ecdh-sha2-nistp256" >> /etc/ssh/sshd_config)
 
-
+#15
 cmd149=$(sed -i -e 's/AllowTcpForwarding yes/AllowTcpForwarding no/g'  /etc/ssh/sshd_config)
+cmd149A=$(sed -i -e 's/#AllowTcpForwarding yes/AllowTcpForwarding no/g'  /etc/ssh/sshd_config)
+
 
 cmd150=$(echo "Banner /etc/issue.net" >> /etc/ssh/sshd_config)
 
 cmd151=$(sed -i -e 's/MaxAuthTries 6/MaxAuthTries 4/g'  /etc/ssh/sshd_config)
 cmd152=$(sed -i -e 's/#MaxAuthTries 4/MaxAuthTries 4/g'  /etc/ssh/sshd_config)
+
+cmd153A=$(sed -i -e 's/#MaxStartups 10:30:100/MaxStartups 10:30:60/g'  /etc/ssh/sshd_config)
+cmd153B=$(sed -i -e 's/MaxStartups 10:30:100/MaxStartups 10:30:60/g'  /etc/ssh/sshd_config)
 
 cmd153=$(sed -i -e 's/#MaxSessions 10/MaxSessions 10/g'  /etc/ssh/sshd_config)
 
