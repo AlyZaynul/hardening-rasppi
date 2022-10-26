@@ -354,8 +354,7 @@ cmd49=$(echo "max_log_file_action = keep_logs" >> /etc/audit/auditd.conf)
 #While security is important the purpose of the camera is meant to be kept running no matter whaat so that emergency stops can still be executed if the employee deem the machine unsafe through the camera feed
 
 #4.1.3.1
-cmd50=$(printf " -w /etc/sudoers -p wa -k scope\n -w /etc/sudoers.d -p wa -k scope" >> /etc/audit/rules.d/50-scope.rules)
-cmd51=$(augenrules --load)
+cmd50=$(bash 4-1-3-1.sh)
 cmd53=$(printf " -a always,exit -F arch=b32 -C euid!=uid -F auid!=unset -S execve -k user_emulation" >> /etc/audit/rules.d/50-user_emulation.rules)
 cmd54=$(augenrules --load)
 #cmd55=({SUDO_LOG_FILE=$(grep -r logfile /etc/sudoers* | sed -e 's/.*logfile=//;s/,?.*//' -e 's/"//g') [ -n "${SUDO_LOG_FILE}" ] && printf " -w ${SUDO_LOG_FILE} -p wa -k sudo_log_file" >> /etc/audit/rules.d/50-sudo.rules || printf "ERROR: Variable 'SUDO_LOG_FILE_ESCAPED' is unset.\n"})
@@ -370,8 +369,7 @@ cmd62=$(augenrules --load)
 cmd63=$(bash 4-1-3-7.sh)
 #{UID_MIN=$(awk '/^\s*UID_MIN/{print $2}' /etc/login.defs) [ -n "${UID_MIN}" ] && printf " -a always,exit -F arch=b32 -S creat,open,openat,truncate,ftruncate -F exit=-EACCES -F auid>=${UID_MIN} -F auid!=unset -k access\n -a always,exit -F arch=b32 -S creat,open,openat,truncate,ftruncate -F exit=-EPERM -F auid>=${UID_MIN} -F auid!=unset -k access" >> /etc/audit/rules.d/50-access.rules || printf "ERROR: Variable 'UID_MIN' is unset.\n"})
 cmd64=$(augenrules --load)
-cmd65=$(printf " -w /etc/group -p wa -k identity\n -w /etc/passwd -p wa -k identity\n -w /etc/gshadow -p wa -k identity\n -w /etc/shadow -p wa -k identity\n -w /etc/security/opasswd -p wa -k identity" >> /etc/audit/rules.d/50-identity.rules)
-cmd66=$(augenrules --load)
+cmd65=$(bash 4-1-3-8.sh)
 #4-1-3-9 & -10 has error
 #cmd67=$({UID_MIN=$(awk '/^\s*UID_MIN/{print $2}' /etc/login.defs) [ -n "${UID_MIN}" ] && printf " -a always,exit -F arch=b32 -S chmod,fchmod,fchmodat -F auid>=${UID_MIN} -F auid!=unset -F key=perm_mod\n -a always,exit -F arch=b32 -S lchown,fchown,chown,fchownat -F auid>=${UID_MIN} -F auid!=unset -F key=perm_mod-a always,exit -F arch=b32 -S setxattr,lsetxattr,fsetxattr,removexattr,lremovexattr,fremovexattr -F auid>=${UID_MIN} -F auid!=unset -F key=perm_mod " >> /etc/audit/rules.d/50-perm_mod.rules || printf "ERROR: Variable 'UID_MIN' is unset.\n"})
 #cmd68=$(augenrules --load)
