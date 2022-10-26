@@ -575,6 +575,7 @@ cmd161=$(echo 'Defaults logfile="/var/log/sudo.log"' >> /etc/sudoers)
 
 cmd162=$(sed -i -e 's/NOPASSWD/PASSWD/g'   /etc/sudoers)
 cmd163=$(sed -i -e 's/NOPASSWD/PASSWD/g'   /etc/sudoers* 2>/dev/null) 
+cmd163A=$(sed -i -e 's/NOPASSWD/PASSWD/g'  /etc/sudoers.d/010_pi-nopasswd)
 
 cmd164=$(sed -i -e 's/!authenticate/PASSWD/g'   /etc/sudoers)
 cmd165=$(sed -i -e 's/!authenticate/PASSWD/g'   /etc/sudoers* 2>/dev/null)
