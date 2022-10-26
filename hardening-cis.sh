@@ -348,6 +348,7 @@ cmd45=$(systemctl --now enable auditd)
 
 
 #DO not want to increase the log storage size as it may take up too much space which could in tern aversely affect the camera feed
+cmd48=$(sed -i -e 's/max_log_file_action/#max_log_file_action/g'  /etc/audit/auditd.conf)
 cmd49=$(echo "max_log_file_action = keep_logs" >> /etc/audit/auditd.conf)
 
 #While security is important the purpose of the camera is meant to be kept running no matter whaat so that emergency stops can still be executed if the employee deem the machine unsafe through the camera feed
