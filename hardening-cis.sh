@@ -596,7 +596,7 @@ cmd172=$(echo "password required pam_pwhistory.so use_authtok remember=5" >> /et
 
 #cmd173=$(sed -i -e 's/password	[success=1 default=ignore]	pam_unix.so obscure use_authtok try_first_pass yescrypt/password	[success=1 default=ignore]	pam_unix.so obscure use_authtok try_first_pass remember=5/g'  /etc/pam.d/common-password)
 cmd173=$(sed -i -e 's/pam_unix.so obscure use_authtok try_first_pass yescrypt/pam_unix.so obscure use_authtok try_first_pass remember=5/g'  /etc/pam.d/common-password)
-cmd174=$(sed -i -e 's/ENCRYPT_METHOD SHA512/ENCRYPT_METHOD yescrypt/g' /etc/login.defs)
+#cmd174=$(sed -i -e 's/ENCRYPT_METHOD SHA512/ENCRYPT_METHOD yescrypt/g' /etc/login.defs)
 
 
 cmd175=$(chage --mindays 1 root)
