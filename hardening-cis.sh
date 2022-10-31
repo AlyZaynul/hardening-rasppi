@@ -371,7 +371,9 @@ cmd63=$(bash 4-1-3-7.sh) #does not work
 cmd64=$(augenrules --load)
 cmd65=$(bash 4-1-3-8.sh)
 #4-1-3-9 & -10 has error
-#cmd67=$({UID_MIN=$(awk '/^\s*UID_MIN/{print $2}' /etc/login.defs) [ -n "${UID_MIN}" ] && printf " -a always,exit -F arch=b32 -S chmod,fchmod,fchmodat -F auid>=${UID_MIN} -F auid!=unset -F key=perm_mod\n -a always,exit -F arch=b32 -S lchown,fchown,chown,fchownat -F auid>=${UID_MIN} -F auid!=unset -F key=perm_mod-a always,exit -F arch=b32 -S setxattr,lsetxattr,fsetxattr,removexattr,lremovexattr,fremovexattr -F auid>=${UID_MIN} -F auid!=unset -F key=perm_mod " >> /etc/audit/rules.d/50-perm_mod.rules || printf "ERROR: Variable 'UID_MIN' is unset.\n"})
+
+cmd67=$(bash 4139.sh)
+#{UID_MIN=$(awk '/^\s*UID_MIN/{print $2}' /etc/login.defs) [ -n "${UID_MIN}" ] && printf " -a always,exit -F arch=b32 -S chmod,fchmod,fchmodat -F auid>=${UID_MIN} -F auid!=unset -F key=perm_mod\n -a always,exit -F arch=b32 -S lchown,fchown,chown,fchownat -F auid>=${UID_MIN} -F auid!=unset -F key=perm_mod-a always,exit -F arch=b32 -S setxattr,lsetxattr,fsetxattr,removexattr,lremovexattr,fremovexattr -F auid>=${UID_MIN} -F auid!=unset -F key=perm_mod " >> /etc/audit/rules.d/50-perm_mod.rules || printf "ERROR: Variable 'UID_MIN' is unset.\n"})
 #cmd68=$(augenrules --load)
 #cmd69=$({UID_MIN=$(awk '/^\s*UID_MIN/{print $2}' /etc/login.defs) [ -n "${UID_MIN}" ] && printf " -a always,exit -F arch=b32 -S mount -F auid>=$UID_MIN -F auid!=unset -k mounts" >> /etc/audit/rules.d/50-mounts.rules || printf "ERROR: Variable 'UID_MIN'is unset.\n"})
 #cmd70=$(augenrules --load)
