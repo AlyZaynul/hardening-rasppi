@@ -18,7 +18,7 @@ cmd50=$(bash 4-1-3-1.sh)
 cmd53=$(printf " -a always,exit -F arch=b32 -C euid!=uid -F auid!=unset -S execve -k user_emulation" >> /etc/audit/rules.d/50-user_emulation.rules)
 cmd54=$(augenrules --load)
 #cmd55=({SUDO_LOG_FILE=$(grep -r logfile /etc/sudoers* | sed -e 's/.*logfile=//;s/,?.*//' -e 's/"//g') [ -n "${SUDO_LOG_FILE}" ] && printf " -w ${SUDO_LOG_FILE} -p wa -k sudo_log_file" >> /etc/audit/rules.d/50-sudo.rules || printf "ERROR: Variable 'SUDO_LOG_FILE_ESCAPED' is unset.\n"})
-cmd55=$(bash 4133.sh)
+cmd55=$(bash 4133.sh)#does not work
 cmd56=$(augenrules --load)
 cmd57=$(printf " -a always,exit -F arch=b32 -S adjtimex,settimeofday,clock_settime,stime -k time-change " >> /etc/audit/rules.d/50-time-change.rules)
 cmd58=$(augenrules --load)
