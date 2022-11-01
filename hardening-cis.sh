@@ -1,5 +1,11 @@
-#Ensure that SSH has been turned on. Via gui or command line using command <sudo raspi-config>
+#!/bin/bash
 
+#Ensure that SSH has been turned on. Via gui or command line using command <sudo raspi-config>
+#1.1.9
+cmmd=$(apt purge autofs 2> /dev/null)
+
+#1.1.10
+cmmd1=$
 
 #AIDE NOT COMPATIBLE ON RASPBERRY PI
 
