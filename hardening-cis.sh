@@ -64,8 +64,8 @@ cmd6=$(apt purge prelink 2> /dev/null)
 #1.5.3 apport cannot be installed on rasp pi
 
 #1.5.4 Ensure core dumps are restricted
-cmd7=$(echo "* hard core 0" >> /etc/security/limits.conf)
-cmd8=$(echo "fs.suid_dumpable = 0" >> /etc/sysctl.conf)
+cmd7=$(printf "* hard core 0" >> /etc/security/limits.conf)
+cmd8=$(printf "fs.suid_dumpable = 0" >> /etc/sysctl.conf)
 cmd9=$(sysctl -w fs.suid_dumpable=0)
 
 
