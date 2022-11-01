@@ -7,3 +7,5 @@ cmd5=$(bash 4136.sh)
 #.7 has errors
 cmd6=$(bash 4138.sh)
 cmd7=$(bash 4139.sh)
+cmd8=$(bash 41310.sh)
+cmd9=$(bash 41311.sh)
