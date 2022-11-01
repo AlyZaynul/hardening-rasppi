@@ -337,91 +337,9 @@ cmd43=$(ufw default deny routed)
 
 
 
+#done in run_after_hardening.sh
 
-#SKipped all the way till 4.1.1.1 
-cmd44=$(apt install auditd audispd-plugins -y)
-cmd45=$(systemctl --now enable auditd)
-
-#cmd46=$(echo 'GRUB_CMDLINE_LINUX="audit=1"' /etc/default/grub)
-#cmd47=$(echo 'GRUB_CMDLINE_LINUX="audit_backlog_limit=8192"' /etc/default/grub)
-#cmd48=$(update-grub)
-
-
-#DO not want to increase the log storage size as it may take up too much space which could in tern aversely affect the camera feed
-cmd48=$(sed -i -e 's/max_log_file_action/#max_log_file_action/g'  /etc/audit/auditd.conf)
-cmd49=$(echo "max_log_file_action = keep_logs" >> /etc/audit/auditd.conf)
-
-#While security is important the purpose of the camera is meant to be kept running no matter whaat so that emergency stops can still be executed if the employee deem the machine unsafe through the camera feed
-
-#4.1.3.1
-cmd50=$(bash 4-1-3-1.sh)
-cmd53=$(printf " -a always,exit -F arch=b32 -C euid!=uid -F auid!=unset -S execve -k user_emulation" >> /etc/audit/rules.d/50-user_emulation.rules)
-cmd54=$(augenrules --load)
-#cmd55=({SUDO_LOG_FILE=$(grep -r logfile /etc/sudoers* | sed -e 's/.*logfile=//;s/,?.*//' -e 's/"//g') [ -n "${SUDO_LOG_FILE}" ] && printf " -w ${SUDO_LOG_FILE} -p wa -k sudo_log_file" >> /etc/audit/rules.d/50-sudo.rules || printf "ERROR: Variable 'SUDO_LOG_FILE_ESCAPED' is unset.\n"})
-cmd55=$(bash 4133.sh)
-cmd56=$(augenrules --load)
-cmd57=$(printf " -a always,exit -F arch=b32 -S adjtimex,settimeofday,clock_settime,stime -k time-change " >> /etc/audit/rules.d/50-time-change.rules)
-cmd58=$(augenrules --load)
-cmd59=$(printf " -a always,exit -F arch=b32 -S sethostname,setdomainname -k system-locale\n-w /etc/issue -p wa -k system-locale\n -w /etc/issue.net -p wa -k system-locale\n -w /etc/hosts -p wa -k system-locale\n -w /etc/networks -p wa -k system-locale\n -w /etc/networks -p wa -k system-locale\n -w /etc/network/ -p wa -k system-locale" >> /etc/audit/rules.d/50-system_local.rules)
-cmd60=$(augenrules --load)
-cmd61=$(bash 4-1-3-6.sh)
-cmd62=$(augenrules --load)
-cmd63=$(bash 4-1-3-7.sh) #does not work
-#{UID_MIN=$(awk '/^\s*UID_MIN/{print $2}' /etc/login.defs) [ -n "${UID_MIN}" ] && printf " -a always,exit -F arch=b32 -S creat,open,openat,truncate,ftruncate -F exit=-EACCES -F auid>=${UID_MIN} -F auid!=unset -k access\n -a always,exit -F arch=b32 -S creat,open,openat,truncate,ftruncate -F exit=-EPERM -F auid>=${UID_MIN} -F auid!=unset -k access" >> /etc/audit/rules.d/50-access.rules || printf "ERROR: Variable 'UID_MIN' is unset.\n"})
-cmd64=$(augenrules --load)
-cmd65=$(bash 4-1-3-8.sh)
-#4-1-3-9 & -10 has error
-
-cmd67=$(bash 4139.sh)
-#{UID_MIN=$(awk '/^\s*UID_MIN/{print $2}' /etc/login.defs) [ -n "${UID_MIN}" ] && printf " -a always,exit -F arch=b32 -S chmod,fchmod,fchmodat -F auid>=${UID_MIN} -F auid!=unset -F key=perm_mod\n -a always,exit -F arch=b32 -S lchown,fchown,chown,fchownat -F auid>=${UID_MIN} -F auid!=unset -F key=perm_mod-a always,exit -F arch=b32 -S setxattr,lsetxattr,fsetxattr,removexattr,lremovexattr,fremovexattr -F auid>=${UID_MIN} -F auid!=unset -F key=perm_mod " >> /etc/audit/rules.d/50-perm_mod.rules || printf "ERROR: Variable 'UID_MIN' is unset.\n"})
-#cmd68=$(augenrules --load)
-#cmd69=$({UID_MIN=$(awk '/^\s*UID_MIN/{print $2}' /etc/login.defs) [ -n "${UID_MIN}" ] && printf " -a always,exit -F arch=b32 -S mount -F auid>=$UID_MIN -F auid!=unset -k mounts" >> /etc/audit/rules.d/50-mounts.rules || printf "ERROR: Variable 'UID_MIN'is unset.\n"})
-#cmd70=$(augenrules --load)
-
-#4-1-3-11
-cmd71=$(printf " -w /var/run/utmp -p wa -k session\n -w /var/log/wtmp -p wa -k session\n -w /var/log/btmp -p wa -k session" >> /etc/audit/rules.d/50-session.rules)
-cmd72=$(augenrules --load)
-
-#4-1-3-12
-cmd73=$(printf " -w /var/log/lastlog -p wa -k logins\n -w /var/run/faillock -p wa -k logins" >> /etc/audit/rules.d/50-login.rules)
-cmd74=$(augenrules --load)
-
-#4-1-3-13 has errors
-#cmd75=$({UID_MIN=$(awk '/^\s*UID_MIN/{print $2}' /etc/login.defs) [ -n "${UID_MIN}" ] && printf " -a always,exit -F arch=b32 -S rename,unlink,unlinkat,renameat -F auid>=${UID_MIN} -F auid!=unset -F key=delete" >> /etc/audit/rules.d/50-delete.rules || printf "ERROR: Variable 'UID_MIN' is unset.\n"})
-#cmd76=$(augenrules --load)
-
-#4-1-3-14
-#cmd77=$(printf " -w /etc/apparmor/ -p wa -k MAC-policy\n -w /etc/apparmor.d/ -p wa -k MAC-policy" >> /etc/audit/rules.d/50-MAC-policy.rules )
-#cmd78=$(augenrules --load)
-
-#4-1-3-15 has errors
-#cmd79=({UID_MIN=$(awk '/^\s*UID_MIN/{print $2}' /etc/login.defs) [ -n "${UID_MIN}" ] && printf " -a always,exit -F path=/usr/bin/chcon -F perm=x -F auid>=${UID_MIN} -F auid!=unset -k perm_chng" >> /etc/audit/rules.d/50-perm_chng.rules || printf "ERROR: Variable 'UID_MIN' is unset.\n"})
-#cmd80=$(augenrules --load)
-
-#4-1-3-16 has errors
-#cmd81=$({UID_MIN=$(awk '/^\s*UID_MIN/{print $2}' /etc/login.defs) [ -n "${UID_MIN}" ] && printf " -a always,exit -F path=/usr/bin/setfacl -F perm=x -F auid>=${UID_MIN} -F auid!=unset -k perm_chng" >> /etc/audit/rules.d/50-perm_chng.rules || printf "ERROR: Variable 'UID_MIN' is unset.\n"})
-#cmd82=$(augenrules --load)
-
-#4-1-3-17 has errors
-#cmd83=$({UID_MIN=$(awk '/^\s*UID_MIN/{print $2}' /etc/login.defs) [ -n "${UID_MIN}" ] && printf " -a always,exit -F path=/usr/bin/chacl -F perm=x -F auid>=${UID_MIN} -F auid!=unset -k perm_chng" >> /etc/audit/rules.d/50-perm_chng.rules || printf "ERROR: Variable'UID_MIN' is unset.\n"})
-#cmd84=$(augenrules --load)
-
-
-
-
-
-
-
-
-
-
-
-#4.1.3.19 only for 64 bit system
-#cmd85=$({UID_MIN=$(awk '/^\s*UID_MIN/{print $2}' /etc/login.defs) [ -n "${UID_MIN}" ] && printf " -a always,exit -F path=/usr/sbin/usermod -F perm=x -F auid>=${UID_MIN} -F auid!=unset -k usermod" >> /etc/audit/rules.d/50-usermod.rules || printf "ERROR: Variable 'UID_MIN' is unset.\n"}
-#cmd86=$(augenrules --load)
-cmdY=$(bash try.sh)
-cmd85=$(printf -- "-e 2" >> /etc/audit/rules.d/99-finalize.rules)
-cmd86=$(augenrules --load)
+#4.1.4.1
 cmd87=$(chmod 640 /etc/audit/auditd.conf)
 cmd88=$(chown root /etc/audit/auditd.conf)
 cmd89=$(chgrp adm /var/log/audit/)
