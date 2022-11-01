@@ -15,3 +15,6 @@ cmd12=$(bash 41314.sh)
 cmd13=$(bash 41315.sh)
 cmd14=$(bash 41316.sh)
 cmd15=$(bash 41317.sh)
+cmd16=$(bash 41318.sh)
+#.19 not for 32bit system
+cmd17=$(bash 41320.sh)
