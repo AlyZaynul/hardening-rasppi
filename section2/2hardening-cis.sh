@@ -1,3 +1,4 @@
+#!/bin/bash
 
 #4.1.4.1
 cmd87=$(chmod 640 /etc/audit/auditd.conf)
