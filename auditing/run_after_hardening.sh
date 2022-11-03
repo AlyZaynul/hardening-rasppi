@@ -1,4 +1,10 @@
 #!/bin/bash
+comd1=$(apt install auditd audispd-plugins)
+comd2=$(systemctl --now enable auditd)
+
+comd3=$(sed -i -e 's/max_log_file_action = */max_log_file_action = keep_logsr"/g' /etc/audit/auditd.conf)
+
+
 cmd1=$(bash 4131.sh)
 cmd2=$(bash 4132.sh)
 #.3 has errors
