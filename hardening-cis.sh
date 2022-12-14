@@ -5,7 +5,7 @@
 cmmd=$(apt purge autofs 2> /dev/null)
 
 #1.1.10
-cmmd1=$
+#cmmd1=$
 
 #AIDE NOT COMPATIBLE ON RASPBERRY PI
 
