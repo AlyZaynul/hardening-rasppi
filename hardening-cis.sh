@@ -173,6 +173,8 @@ command=$(apt purge ntp -y)
 command1=$(apt install ntp -y)
 command2=$(sed -i -e 's/restrict -4 default kod notrap nomodify nopeer noquery limited/restrict -4 default kod notrap nomodify nopeer noquery/g'  /etc/ntp.conf)
 command3=$(sed -i -e 's/restrict -6 default kod nomodify notrap nopeer noquery/restrict -6 default kod notrap nomodify nopeer noquery/g'  /etc/ntp.conf)
+command3=$(sed -i -e 's/restrict -6 default kod nomodify notrap nopeer noquery limited/restrict -6 default kod notrap nomodify nopeer noquery/g'  /etc/ntp.conf)
+
 command4=$(systemctl unmask ntp.service)
 command5=$(systemctl --now enable ntp.service)
 
